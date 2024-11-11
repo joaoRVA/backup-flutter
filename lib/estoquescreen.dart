@@ -107,18 +107,41 @@ class _EstoqueScreenState extends State<EstoqueScreen> {
                   itemCount: _searchResults.length,
                   itemBuilder: (context, index) {
                     final product = _searchResults[index];
-                    return ListTile(
-                      title: Text(product['nome'] ?? 'Produto'),
-                      subtitle: Text('Quantidade: ${product['qtd_disponivel']} - ${product['descricao']}'),
-                      textColor: Colors.white,
-                      leading: product['imagem'] != null
-                          ? Image.network(
-                              'https://cors-anywhere.herokuapp.com/${product['imagem']}',
-                              width: 50,
-                              height: 50,
-                              fit: BoxFit.cover,
-                            )
-                          : null, // Exibe imagem se disponível
+                    return Card(
+                      margin: EdgeInsets.symmetric(vertical: 8),
+                      elevation: 5,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      child: ListTile(
+                        contentPadding: EdgeInsets.all(16),
+                        title: Text(
+                          product['nome'] ?? 'Produto',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          ),
+                        ),
+                        subtitle: Text(
+                          'Quantidade: ${product['qtd_disponivel']} - ${product['descricao']}',
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: Colors.black54,
+                          ),
+                        ),
+                        leading: product['imagem_mobile'] != null
+                            ? ClipRRect(
+                                borderRadius: BorderRadius.circular(8),
+                                child: Image.network(
+                                  product['imagem_mobile'],
+                                  width: 70,
+                                  height: 70,
+                                  fit: BoxFit.cover,
+                                ),
+                              )
+                            : null, // Exibe imagem se disponível
+                      ),
                     );
                   },
                 ),

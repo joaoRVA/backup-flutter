@@ -104,7 +104,7 @@ app.get('/search', async (req, res) => {
       const pool = await poolPromise; // Aguarda a conexão
       const result = await pool.request()
         .input('query', sql.VarChar, `%${query}%`) // Usa parâmetro para evitar SQL Injection
-        .query('SELECT nome, qtd_disponivel, descricao, imagem FROM Produto WHERE nome LIKE @query');
+        .query('SELECT nome, qtd_disponivel, descricao, imagem_mobile FROM Produto WHERE nome LIKE @query');
       
       res.json(result.recordset);
     } catch (err) {
