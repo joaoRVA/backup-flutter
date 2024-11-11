@@ -94,6 +94,7 @@ const createPool = async () => {
 
 createPool();
 
+
 app.get('/search', async (req, res) => {
     const query = req.query.query; // Obtém a consulta da URL
     try {
