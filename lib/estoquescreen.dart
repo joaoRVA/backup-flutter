@@ -108,7 +108,15 @@ class _EstoqueScreenState extends State<EstoqueScreen> {
                   itemBuilder: (context, index) {
                     final product = _searchResults[index];
                     return ListTile(
-                      title: Text(product['nome'] ?? 'Produtos'),
+                      leading: product['imagem'] != null
+                          ? Image.network(
+                              product['imagem'],
+                              width: 50,
+                              height: 50,
+                              fit: BoxFit.cover,
+                            )
+                          : Icon(Icons.image, size: 50), // Placeholder if no image
+                      title: Text(product['nome'] ?? 'Produto'),
                       subtitle: Text('Quantidade: ${product['qtd_disponivel']} - ${product['descricao']}'),
                       textColor: Colors.white,
                     );
