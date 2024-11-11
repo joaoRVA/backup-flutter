@@ -111,7 +111,7 @@ class _EstoqueScreenState extends State<EstoqueScreen> {
                       title: Text(product['nome'] ?? 'Produto'),
                       subtitle: Text('Quantidade: ${product['qtd_disponivel']} - ${product['descricao']}'),
                       textColor: Colors.white,
-                      leading: product['imagem_url'] != null
+                      leading: product['imagem'] != null
                           ? Image.network(
                               'https://cors-anywhere.herokuapp.com/${product['imagem']}',
                               width: 50,
