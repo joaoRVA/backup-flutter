@@ -11,24 +11,24 @@ app.use(cors());
 app.use(bodyParser.json());
 
 const dbConfig = {
-  user: 'fazendatech',
-  password: 'Fazenda123',
-  server: 'fazendatech.database.windows.net', // ou o IP do seu servidor
-  database: 'Fazendatech',
+  user: process.env.DB_USER,        
+  password: process.env.DB_PASSWORD,
+  server: process.env.DB_SERVER,      
+  database: process.env.DB_DATABASE,
   options: {
-    encrypt: true, // Habilita a criptografia
+    encrypt: true,
     enableArithAbort: true,
   }
 };
 
-sql.connect(config, err => {
+// Substituindo 'config' por 'dbConfig'
+sql.connect(dbConfig, err => {
     if (err) {
       console.error('Erro ao conectar ao banco de dados:', err);
       return;
     }
     console.log('Conectado ao banco de dados!');
   });
-
 
 // Rota para cadastrar usuário
 app.post('/register', async (req, res) => {
@@ -41,7 +41,7 @@ app.post('/register', async (req, res) => {
 
     try {
         // Conectando ao banco de dados
-        await sql.connect(config);
+        await sql.connect(dbConfig);
 
         // Verificando se o CPF ou e-mail já existem
         const result = await sql.query`SELECT * FROM Cliente WHERE cpf = ${cpf} OR email = ${email}`;
@@ -65,7 +65,7 @@ app.post('/register', async (req, res) => {
 app.post('/login', async (req, res) => {
     try {
         const { email, password } = req.body;
-        await sql.connect(config);
+        await sql.connect(dbConfig);  // Alterado para dbConfig
         const result = await sql.query`SELECT * FROM Cliente WHERE email = ${email} AND senha = ${password}`;
         if (result.recordset.length > 0) {
             res.status(200).send(result.recordset[0]);
@@ -83,7 +83,7 @@ let poolPromise; // Declaramos a variável aqui
 // Função para criar a conexão
 const createPool = async () => {
   try {
-    poolPromise = await new sql.ConnectionPool(config).connect();
+    poolPromise = await new sql.ConnectionPool(dbConfig).connect(); // Alterado para dbConfig
     console.log('Conectado ao banco de dados!');
     return poolPromise;
   } catch (err) {

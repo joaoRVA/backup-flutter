@@ -17,7 +17,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Future<void> login() async {
     final response = await http.post(
-      Uri.parse('http://localhost:3000/login'), // URL da sua API
+      Uri.parse('https://backup-flutter.onrender.com/login'), // URL da sua API
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },

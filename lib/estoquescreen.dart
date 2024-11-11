@@ -19,7 +19,7 @@ class _EstoqueScreenState extends State<EstoqueScreen> {
       return;
     }
 
-    final response = await http.get(Uri.parse('http://localhost:3000/search?query=$query'));
+    final response = await http.get(Uri.parse('https://backup-flutter.onrender.com/search?query=$query'));
 
     if (response.statusCode == 200) {
       setState(() {

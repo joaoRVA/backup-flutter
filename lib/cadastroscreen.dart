@@ -23,7 +23,7 @@ class _CadastroScreenState extends State<CadastroScreen> {
   Future<bool> cadastro() async {
     if (_formKey.currentState?.validate() ?? false) {
       final response = await http.post(
-        Uri.parse('http://localhost:3000/register'), // URL da sua API
+        Uri.parse('https://backup-flutter.onrender.com/register'), // URL da sua API
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
