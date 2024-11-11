@@ -113,34 +113,55 @@ class _EstoqueScreenState extends State<EstoqueScreen> {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15),
                       ),
-                      child: ListTile(
-                        contentPadding: EdgeInsets.all(16),
-                        title: Text(
-                          product['nome'] ?? 'Produto',
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black,
-                          ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(10),
+                              child: product['imagem_mobile'] != null
+                                  ? Image.network(
+                                      product['imagem_mobile'],
+                                      width: double.infinity, // Aumentando a largura da imagem
+                                      height: 150, // Tamanho fixo para a imagem
+                                      fit: BoxFit.cover,
+                                    )
+                                  : Container(
+                                      height: 150,
+                                      color: Colors.grey[300],
+                                      child: Center(child: Text('Sem Imagem')),
+                                    ),
+                            ),
+                            SizedBox(height: 10),
+                            Text(
+                              product['nome'] ?? 'Produto',
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black,
+                              ),
+                            ),
+                            SizedBox(height: 5),
+                            Text(
+                              'Quantidade: ${product['qtd_disponivel']}',
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold, // Em negrito
+                                color: Colors.black54,
+                              ),
+                            ),
+                            SizedBox(height: 5),
+                            Text(
+                              product['descricao'] ?? 'Sem descrição',
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold, // Em negrito
+                                color: Colors.black,
+                                height: 1.5, // Maior espaçamento entre linhas
+                              ),
+                            ),
+                          ],
                         ),
-                        subtitle: Text(
-                          'Quantidade: ${product['qtd_disponivel']} - ${product['descricao']}',
-                          style: TextStyle(
-                            fontSize: 14,
-                            color: Colors.black54,
-                          ),
-                        ),
-                        leading: product['imagem_mobile'] != null
-                            ? ClipRRect(
-                                borderRadius: BorderRadius.circular(8),
-                                child: Image.network(
-                                  product['imagem_mobile'],
-                                  width: 70,
-                                  height: 70,
-                                  fit: BoxFit.cover,
-                                ),
-                              )
-                            : null, // Exibe imagem se disponível
                       ),
                     );
                   },
